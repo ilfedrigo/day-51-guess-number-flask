@@ -1,4 +1,4 @@
-# 52 Days of Python: Flask Number Guessing Game
+# 51 Days of Python: Flask Number Guessing Game
 
 This repository is a part of my 52-day journey into learning Python programming. Here, I'm experimenting with various concepts like decorator functions and Flask framework.
 
