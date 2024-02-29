@@ -1,43 +1,25 @@
 from flask import Flask
+import random
 
+random_number = random.randint(0, 9)
+print(random_number)
 app = Flask(__name__)
-
-def big_center(function):
-    def wrapper():
-        return f"<h1 style='text-align:center'>{function()}</h1>"
-    return wrapper
-
-def make_bold(function):
-    def wrapper():
-        return f"<b>{function()}<b>"
-    return wrapper
-
-def underline(function):
-    def wrapper():
-        return f"<u>{function()}</u>"
-    return wrapper
-
-def make_italic(function):
-    def wrapper():
-        return f"<em>{function()}</em>"
-    return wrapper
 
 @app.route('/')
 def hello_world():
-    return "Hello world!"
+    return "<h1>Guess a number between 0 and 9</h1>" \
+            "<img src='https://media.giphy.com/media/3o7aCSPqXE5C6T8tBC/giphy.gif' width=200>"
 
-@app.route("/bye")
-@big_center
-@make_bold
-@make_italic
-@underline
-
-def bye():
-    return "Bye!"
-
-@app.route("/<name>")
-def greet(name):
-    return f"Hello there {name}"
-
+@app.route("/<int:guess>")
+def guess_number(guess):
+    if guess > random_number:
+        return "<h1>Too high!</h1>" \
+               "<img src='https://media.giphy.com/media/3o6ZtaO9BZHcOjmErm/giphy.gif' width=200>"
+    elif guess < random_number:
+        return "<h1>Too low, try again!</h1>" \
+               "<img src='https://media.giphy.com/media/jD4DwBtqPXRXa/giphy.gif' width=200>"
+    else:
+        return "<h1>You got it!</h1>" \
+               "<img src='https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExdjExdDhnanJ2a29xdTNxdm9mb2Fla3RheWtncDd1a2EzMHp6YXgycSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/o75ajIFH0QnQC3nCeD/giphy.gif' width=200>"
 if __name__ == "__main__":
     app.run(debug=True)
